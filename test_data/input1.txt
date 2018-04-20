@@ -1,3 +1,0 @@
-a sample
-txt. document
-ok;

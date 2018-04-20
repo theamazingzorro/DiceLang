@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dice.error.UnexpectedCharacterException;
 import dice.tokenizer.Token.TokenType;
 
 /**
@@ -15,7 +16,6 @@ import dice.tokenizer.Token.TokenType;
 public class Tokenizer {
 
     private static final Map<String, TokenType> keywords;
-
     static {
         keywords = new HashMap<>();
         keywords.put("and", TokenType.AND);
@@ -40,7 +40,7 @@ public class Tokenizer {
         this.src = src;
     }
 
-    public List<Token> scanTokens() {
+    public List<Token> scanTokens() throws UnexpectedCharacterException {
         while (!this.isAtEnd()) {
             this.start = this.current;
             this.scanToken();
@@ -50,7 +50,7 @@ public class Tokenizer {
         return this.tokens;
     }
 
-    private void scanToken() {
+    private void scanToken() throws UnexpectedCharacterException {
         char c = this.advance();
 
         switch (c) {
@@ -147,7 +147,8 @@ public class Tokenizer {
                 } else if (this.isAlpha(c)) {
                     this.identifier();
                 } else {
-                    // error
+                    throw new UnexpectedCharacterException(this.line,
+                            this.current - 1, this.src);
                 }
                 break;
         }

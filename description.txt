@@ -6,17 +6,18 @@ program:        {function} main_method
 main_method:    'main' block
 function:       'func' identifier params block
 func_call:      identifier '(' [expr] {',' expr} ')'
+                | 'd' '(' expr ')'
 
 
 params:         '(' {identifier} ')'
 block:          '{' {statement} '}'
 
-statement:      print_stmt
-                |   assignment
-                |   return_stmt
+statement:      print_stmt ';'
+                |   assignment ';'
+                |   return_stmt ';'
                 |   if_else
                 |   while
-                |   expr
+                |   func_call ';'
                 
 print_stmt:     'print' expr
 assignment:     identifier '<-' expr
@@ -35,8 +36,7 @@ comp_op:        '=' | '<' | '>' | '!=' | '<=' | '>='
 
 
 expr:           term {add_op term}
-term:           dice {mult_op dice}
-dice:           factor ['D' factor]
+term:           factor {mult_op factor}
 factor:         func_call | number | identifier | '(' expr ')'
 
 add_op:         '+' | '-'
