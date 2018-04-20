@@ -1,0 +1,69 @@
+A language which processes and evaluates arbitrary dice rules.
+Note: All statements have an integer value, and functions return the final integer value by default.
+
+
+program:        {function} main_method
+main_method:    'main' block
+function:       'func' identifier params block
+func_call:      identifier '(' [expr] {',' expr} ')'
+
+
+params:         '(' {identifier} ')'
+block:          '{' {statement} '}'
+
+statement:      print_stmt
+                |   assignment
+                |   return_stmt
+                |   if_else
+                |   while
+                |   expr
+                
+print_stmt:     'print' expr
+assignment:     identifier '<-' expr
+return_stmt:    'return' expr
+
+if_else:        'if' '(' condition ')' block ['else' (block | if_else)] 
+while:          'while' '(' condition ')' block
+
+
+condition:      negation {cond_op negation} 
+negation:       'not' comparison
+comparison:     expr comp_op expr | '(' condition ')'
+
+cond_op:        'and' | 'or'
+comp_op:        '=' | '<' | '>' | '!=' | '<=' | '>='
+
+
+expr:           term {add_op term}
+term:           dice {mult_op dice}
+dice:           factor ['D' factor]
+factor:         func_call | number | identifier | '(' expr ')'
+
+add_op:         '+' | '-'
+mult_op:        '*' | '/'
+
+number:         ['-'] digit {digit}
+digit:          0 | 1 | 2 | ... | 9
+
+identifier:     lower_case { lower_case | upper_case | '_' | '-'}
+lower_case:     a | b | c | ... | z
+upper_case:     A | B | C | ... | Z
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
