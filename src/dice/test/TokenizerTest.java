@@ -1,0 +1,61 @@
+package dice.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import dice.tokenizer.Token;
+import dice.tokenizer.Token.TokenType;
+import dice.tokenizer.Tokenizer;
+
+class TokenizerTest {
+
+    @Test
+    void test1() {
+        Tokenizer t = new Tokenizer("print 5 * 7");
+        List<Token> tokens = t.scanTokens();
+
+        List<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token("print", TokenType.PRINT));
+        expectedTokens.add(new Token("5", TokenType.NUMBER));
+        expectedTokens.add(new Token("", TokenType.STAR));
+        expectedTokens.add(new Token("7", TokenType.NUMBER));
+        expectedTokens.add(new Token("", TokenType.EOF));
+
+        assertEquals(expectedTokens, tokens);
+    }
+
+    @Test
+    void test2() {
+        Tokenizer t = new Tokenizer("if (ifVariable9){\n return 3*d(3); \n}");
+        List<Token> tokens = t.scanTokens();
+
+        List<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token("if", TokenType.IF));
+        expectedTokens.add(new Token("", TokenType.L_PAREN));
+        expectedTokens.add(new Token("ifVariable9", TokenType.IDENTIFIER));
+        expectedTokens.add(new Token("", TokenType.R_PAREN));
+        expectedTokens.add(new Token("", TokenType.L_BRACE));
+        expectedTokens.add(new Token("return", TokenType.RETURN));
+        expectedTokens.add(new Token("3", TokenType.NUMBER));
+        expectedTokens.add(new Token("", TokenType.STAR));
+        expectedTokens.add(new Token("", TokenType.DICE_OP));
+        expectedTokens.add(new Token("", TokenType.L_PAREN));
+        expectedTokens.add(new Token("3", TokenType.NUMBER));
+        expectedTokens.add(new Token("", TokenType.R_PAREN));
+        expectedTokens.add(new Token("", TokenType.SEMICOLON));
+        expectedTokens.add(new Token("", TokenType.R_BRACE));
+        expectedTokens.add(new Token("", TokenType.EOF));
+
+        assertEquals(expectedTokens, tokens);
+        assertEquals(1, tokens.get(0).line());
+        assertEquals(1, tokens.get(4).line());
+        assertEquals(2, tokens.get(5).line());
+        assertEquals(2, tokens.get(12).line());
+        assertEquals(3, tokens.get(13).line());
+    }
+
+}
