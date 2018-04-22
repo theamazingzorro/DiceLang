@@ -1,5 +1,6 @@
 package dice.error;
 
+@SuppressWarnings("serial")
 public class UnexpectedCharacterException extends Exception {
 
     private final int line;

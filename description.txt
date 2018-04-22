@@ -1,8 +1,6 @@
 A language which processes and evaluates arbitrary dice rules.
-Note: All statements have an integer value, and functions return the final integer value by default.
 
-
-program:        {function} main_method
+program:        {function} main_method {function}
 main_method:    'main' block
 function:       'func' identifier params block
 func_call:      identifier '(' [expr] {',' expr} ')'
@@ -17,7 +15,7 @@ statement:      print_stmt ';'
                 |   return_stmt ';'
                 |   if_else
                 |   while
-                |   func_call ';'
+                |   expr ';'
                 
 print_stmt:     'print' expr
 assignment:     identifier '<-' expr
@@ -40,7 +38,7 @@ term:           factor {mult_op factor}
 factor:         func_call | number | identifier | '(' expr ')'
 
 add_op:         '+' | '-'
-mult_op:        '*' | '/'
+mult_op:        '*' | '/' | '%'
 
 number:         ['-'] digit {digit}
 digit:          0 | 1 | 2 | ... | 9
