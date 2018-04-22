@@ -30,17 +30,35 @@ public class Tokenizer {
     }
 
     private final String src;
-    private final List<Token> tokens = new ArrayList<>();
+    private List<Token> tokens;
 
-    private int start = 0;
-    private int current = 0;
-    private int line = 1;
+    private int start;
+    private int current;
+    private int line;
 
+    /**
+     * Creates a new Tokenizer for the given String.
+     *
+     * @param src
+     *            the String to tokenize
+     */
     public Tokenizer(String src) {
         this.src = src;
     }
 
+    /**
+     * Separates a string into the {@link Token tokens} that comprise it.
+     * 
+     * @return a {@link List} of the tokens in the String
+     * @throws UnexpectedCharacterException
+     *             if the String contains an invalid sequence of characters
+     */
     public List<Token> scanTokens() throws UnexpectedCharacterException {
+        this.start = 0;
+        this.current = 0;
+        this.line = 1;
+        this.tokens = new ArrayList<>();
+
         while (!this.isAtEnd()) {
             this.start = this.current;
             this.scanToken();
