@@ -72,6 +72,7 @@ public class Command implements Statement {
             }
             case RETURN: {
                 result = "return " + this.expression.toString() + ';';
+                break;
             }
             case EXPR: {
                 result = this.expression.toString() + ';';

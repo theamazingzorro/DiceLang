@@ -39,6 +39,9 @@ public class FunctionCall implements Expression {
     @Override
     public void setScope(Scope p) {
         this.parent = p;
+        for (Expression e : this.args) {
+            e.setScope(p);
+        }
     }
 
     @Override
