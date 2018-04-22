@@ -25,16 +25,16 @@ if_else:        'if' '(' condition ')' block ['else' (block | if_else)]
 while:          'while' '(' condition ')' block
 
 
-condition:      negation {cond_op negation} 
-negation:       'not' comparison
+condition:      negation [cond_op condition] 
+negation:       ['not'] comparison
 comparison:     expr comp_op expr | '(' condition ')'
 
 cond_op:        'and' | 'or'
 comp_op:        '=' | '<' | '>' | '!=' | '<=' | '>='
 
 
-expr:           term {add_op term}
-term:           factor {mult_op factor}
+expr:           term [add_op expr]
+term:           factor [mult_op term]
 factor:         func_call | number | identifier | '(' expr ')'
 
 add_op:         '+' | '-'

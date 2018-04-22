@@ -14,6 +14,7 @@ public class Token {
         MINUS,
         SLASH,
         STAR,
+        PERCENT,
         ARROW,
         SEMICOLON,
         EQUALS,

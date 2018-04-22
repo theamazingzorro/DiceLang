@@ -148,8 +148,7 @@ class TokenizerTest {
 
     @Test
     void test6() {
-        Tokenizer t = new Tokenizer(
-                "and or main func if while else andormainfunc");
+        Tokenizer t = new Tokenizer("and or main func if while else andormainfunc");
 
         List<Token> tokens = null;
         try {

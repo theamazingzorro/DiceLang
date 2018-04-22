@@ -27,6 +27,10 @@ public class Command implements Statement {
         this.expression = e;
     }
 
+    public CommandType getType() {
+        return this.type;
+    }
+
     @Override
     public void setParentScope(Scope p) {
         this.parent = p;
@@ -62,8 +66,7 @@ public class Command implements Statement {
 
         switch (this.type) {
             case ASSIGNMENT: {
-                result = this.identifier + " <- " + this.expression.toString()
-                        + ';';
+                result = this.identifier + " <- " + this.expression.toString() + ';';
                 break;
             }
             case PRINT: {

@@ -29,19 +29,16 @@ class ProgramTest {
         Block b = new Block(p);
         p.replaceBody(b);
 
-        b.addStatement(
-                new Command(CommandType.ASSIGNMENT, "var", new Constant(12)));
+        b.addStatement(new Command(CommandType.ASSIGNMENT, "var", new Constant(12)));
 
         Block b1 = new Block(b);
         Block b2 = new Block(b);
-        Condition c = new Comparison(CompType.EQUAL, new Constant(12),
-                new Variable("var", 2));
+        Condition c = new Comparison(CompType.EQUAL, new Constant(12), new Variable("var", 2));
         IfElse i = new IfElse(c, b1, b2);
         b.addStatement(i);
 
         b1.addStatement(new Command(CommandType.PRINT, new Variable("var", 3)));
-        b1.addStatement(
-                new Command(CommandType.RETURN, new Variable("var", 3)));
+        b1.addStatement(new Command(CommandType.RETURN, new Variable("var", 3)));
         b2.addStatement(new Command(CommandType.PRINT, new Constant(22)));
 
         //System.out.println(p);
@@ -54,19 +51,15 @@ class ProgramTest {
         Block b = new Block(p);
         p.replaceBody(b);
 
-        b.addStatement(
-                new Command(CommandType.ASSIGNMENT, "var", new Constant(0)));
+        b.addStatement(new Command(CommandType.ASSIGNMENT, "var", new Constant(0)));
 
-        Condition c = new Comparison(CompType.NOT_EQUAL, new Variable("var", 2),
-                new Constant(10));
+        Condition c = new Comparison(CompType.NOT_EQUAL, new Variable("var", 2), new Constant(10));
 
         Block bw = new Block(b);
         b.addStatement(new While(c, bw));
 
-        bw.addStatement(new Command(CommandType.EXPR,
-                new FunctionCall("foo", 3, new Variable("var", 3))));
-        bw.addStatement(new Command(CommandType.ASSIGNMENT, "var", new BinaryOp(
-                BinaryType.ADD, new Variable("var", 4), new Constant(1))));
+        bw.addStatement(new Command(CommandType.EXPR, new FunctionCall("foo", 3, new Variable("var", 3))));
+        bw.addStatement(new Command(CommandType.ASSIGNMENT, "var", new BinaryOp(BinaryType.ADD, new Variable("var", 4), new Constant(1))));
 
         Block bf = new Block(null);
         Function foo = new Function("foo", Arrays.asList("x"), bf);
@@ -88,14 +81,12 @@ class ProgramTest {
 
         b.addStatement(new Command(CommandType.ASSIGNMENT, "var", d6));
 
-        Condition c = new Comparison(CompType.NOT_EQUAL, new Variable("var", 2),
-                new Constant(3));
+        Condition c = new Comparison(CompType.NOT_EQUAL, new Variable("var", 2), new Constant(3));
 
         Block bw = new Block(b);
         b.addStatement(new While(c, bw));
 
-        bw.addStatement(new Command(CommandType.EXPR,
-                new FunctionCall("foo", 3, new Variable("var", 3))));
+        bw.addStatement(new Command(CommandType.EXPR, new FunctionCall("foo", 3, new Variable("var", 3))));
         bw.addStatement(new Command(CommandType.ASSIGNMENT, "var", d6));
 
         Block bf = new Block(null);

@@ -48,7 +48,7 @@ public class Tokenizer {
 
     /**
      * Separates a string into the {@link Token tokens} that comprise it.
-     * 
+     *
      * @return a {@link List} of the tokens in the String
      * @throws UnexpectedCharacterException
      *             if the String contains an invalid sequence of characters
@@ -102,38 +102,34 @@ public class Tokenizer {
             case '=':
                 this.tokens.add(new Token("", TokenType.EQUALS, this.line));
                 break;
+            case '%':
+                this.tokens.add(new Token("", TokenType.PERCENT, this.line));
+                break;
             case 'd':
                 if (this.match('(')) {
-                    this.tokens
-                            .add(new Token("", TokenType.DICE_OP, this.line));
-                    this.tokens
-                            .add(new Token("", TokenType.L_PAREN, this.line));
+                    this.tokens.add(new Token("", TokenType.DICE_OP, this.line));
+                    this.tokens.add(new Token("", TokenType.L_PAREN, this.line));
                 } else if (this.match(' ')) {
-                    this.tokens
-                            .add(new Token("", TokenType.DICE_OP, this.line));
+                    this.tokens.add(new Token("", TokenType.DICE_OP, this.line));
                 }
                 break;
             case '!':
                 if (this.match('=')) {
-                    this.tokens.add(
-                            new Token("", TokenType.NOT_EQUALS, this.line));
+                    this.tokens.add(new Token("", TokenType.NOT_EQUALS, this.line));
                 } else {
                     this.tokens.add(new Token("", TokenType.NOT, this.line));
                 }
                 break;
             case '>':
                 if (this.match('=')) {
-                    this.tokens.add(
-                            new Token("", TokenType.GREATER_EQUAL, this.line));
+                    this.tokens.add(new Token("", TokenType.GREATER_EQUAL, this.line));
                 } else {
-                    this.tokens
-                            .add(new Token("", TokenType.GREATER, this.line));
+                    this.tokens.add(new Token("", TokenType.GREATER, this.line));
                 }
                 break;
             case '<':
                 if (this.match('=')) {
-                    this.tokens.add(
-                            new Token("", TokenType.LESSER_EQUAL, this.line));
+                    this.tokens.add(new Token("", TokenType.LESSER_EQUAL, this.line));
                 } else if (this.match('-')) {
                     this.tokens.add(new Token("", TokenType.ARROW, this.line));
                 } else {
@@ -165,8 +161,7 @@ public class Tokenizer {
                 } else if (this.isAlpha(c)) {
                     this.identifier();
                 } else {
-                    throw new UnexpectedCharacterException(this.line,
-                            this.current - 1, this.src);
+                    throw new UnexpectedCharacterException(this.line, this.current - 1, this.src);
                 }
                 break;
         }
@@ -193,8 +188,7 @@ public class Tokenizer {
             this.advance();
         }
 
-        this.tokens.add(new Token(this.src.substring(this.start, this.current),
-                TokenType.NUMBER, this.line));
+        this.tokens.add(new Token(this.src.substring(this.start, this.current), TokenType.NUMBER, this.line));
     }
 
     private boolean isDigit(char c) {
