@@ -2,6 +2,8 @@ package dice.program.expression;
 
 import java.util.Random;
 
+import dice.error.UndefinedFunctionException;
+import dice.error.UndefinedVariableException;
 import dice.program.Scope;
 
 public class DiceOp implements Expression {
@@ -15,7 +17,7 @@ public class DiceOp implements Expression {
     }
 
     @Override
-    public int getResult() {
+    public int getResult() throws UndefinedFunctionException, UndefinedVariableException {
         int i = this.e.getResult();
 
         return rand.nextInt(i - 1) + 1;

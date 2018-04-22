@@ -1,7 +1,7 @@
 package dice.error;
 
 @SuppressWarnings("serial")
-public class UnexpectedCharacterException extends Exception {
+public class UnexpectedCharacterException extends DiceError {
 
     private final int line;
     private final String src;
@@ -13,8 +13,7 @@ public class UnexpectedCharacterException extends Exception {
 
     @Override
     public String getMessage() {
-        return "line " + this.line + ": unexpected character [ " + this.src
-                + "]";
+        return "line " + this.line + ": unexpected character [ " + this.src + "]";
     }
 
     public int getLine() {

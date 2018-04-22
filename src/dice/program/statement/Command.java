@@ -1,5 +1,7 @@
 package dice.program.statement;
 
+import dice.error.UndefinedFunctionException;
+import dice.error.UndefinedVariableException;
 import dice.program.Return;
 import dice.program.Scope;
 import dice.program.expression.Expression;
@@ -38,7 +40,7 @@ public class Command implements Statement {
     }
 
     @Override
-    public void run() throws Return {
+    public void run() throws Return, UndefinedFunctionException, UndefinedVariableException {
         int i = this.expression.getResult();
 
         switch (this.type) {

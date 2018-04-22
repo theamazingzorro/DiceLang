@@ -1,6 +1,7 @@
 package dice.program.expression;
 
 import dice.error.UndefinedFunctionException;
+import dice.error.UndefinedVariableException;
 import dice.program.Function;
 import dice.program.Scope;
 
@@ -19,19 +20,14 @@ public class FunctionCall implements Expression {
     }
 
     @Override
-    public int getResult() {
+    public int getResult() throws UndefinedFunctionException, UndefinedVariableException {
         int result = 0;
-        try {
-            Function f = this.parent.getFunction(this.identifier, this.line);
-            int[] arr = new int[this.args.length];
-            for (int i = 0; i < this.args.length; i++) {
-                arr[i] = this.args[i].getResult();
-            }
-            result = f.getResult(arr);
-        } catch (UndefinedFunctionException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+        Function f = this.parent.getFunction(this.identifier, this.line);
+        int[] arr = new int[this.args.length];
+        for (int i = 0; i < this.args.length; i++) {
+            arr[i] = this.args[i].getResult();
         }
+        result = f.getResult(arr);
 
         return result;
     }

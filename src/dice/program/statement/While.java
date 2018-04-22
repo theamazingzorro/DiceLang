@@ -1,5 +1,7 @@
 package dice.program.statement;
 
+import dice.error.UndefinedFunctionException;
+import dice.error.UndefinedVariableException;
 import dice.program.Return;
 import dice.program.Scope;
 import dice.program.condition.Condition;
@@ -15,7 +17,7 @@ public class While implements Statement {
     }
 
     @Override
-    public void run() throws Return {
+    public void run() throws Return, UndefinedFunctionException, UndefinedVariableException {
         while (this.c.getResult()) {
             this.b.run();
         }

@@ -1,7 +1,7 @@
 package dice.error;
 
 @SuppressWarnings("serial")
-public class UndefinedVariableException extends Exception {
+public class UndefinedVariableException extends DiceError {
     private final String var;
     private final int line;
 
@@ -12,8 +12,7 @@ public class UndefinedVariableException extends Exception {
 
     @Override
     public String getMessage() {
-        return "line " + this.line + ": variable " + this.var
-                + " was never declared.";
+        return "line " + this.line + ": variable " + this.var + " was never declared.";
     }
 
     public String getVariableName() {

@@ -1,5 +1,7 @@
 package dice.program.condition;
 
+import dice.error.UndefinedFunctionException;
+import dice.error.UndefinedVariableException;
 import dice.program.Scope;
 
 public class Logic implements Condition {
@@ -26,7 +28,7 @@ public class Logic implements Condition {
     }
 
     @Override
-    public boolean getResult() {
+    public boolean getResult() throws UndefinedFunctionException, UndefinedVariableException {
         switch (this.type) {
             case AND:
                 return this.c1.getResult() && this.c2.getResult();

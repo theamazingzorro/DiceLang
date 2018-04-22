@@ -7,17 +7,17 @@ import dice.error.UnexpectedTokenException;
 import dice.program.Function;
 import dice.program.Program;
 import dice.program.condition.Comparison;
+import dice.program.condition.Comparison.CompType;
 import dice.program.condition.Condition;
 import dice.program.condition.Logic;
-import dice.program.condition.Comparison.CompType;
 import dice.program.condition.Logic.LogicType;
-import dice.program.expression.Expression;
-import dice.program.expression.FunctionCall;
-import dice.program.expression.Variable;
 import dice.program.expression.BinaryOp;
 import dice.program.expression.BinaryOp.BinaryType;
 import dice.program.expression.Constant;
 import dice.program.expression.DiceOp;
+import dice.program.expression.Expression;
+import dice.program.expression.FunctionCall;
+import dice.program.expression.Variable;
 import dice.program.statement.Block;
 import dice.program.statement.Command;
 import dice.program.statement.Command.CommandType;
@@ -283,14 +283,20 @@ public class Parser {
         Condition c = this.parseCondition();
         this.consumeIf(TokenType.R_PAREN);
         Block b1 = this.parseBlock();
-        this.consumeIf(TokenType.ELSE);
-        if (this.peek().type() == TokenType.IF) {
-            IfElse b2 = this.parseIf();
-            return new IfElse(c, b1, b2);
+
+        if (this.peek().type() == TokenType.ELSE) {
+            this.consume();
+            if (this.peek().type() == TokenType.IF) {
+                IfElse b2 = this.parseIf();
+                return new IfElse(c, b1, b2);
+            } else {
+                Block b2 = this.parseBlock();
+                return new IfElse(c, b1, b2);
+            }
         } else {
-            Block b2 = this.parseBlock();
-            return new IfElse(c, b1, b2);
+            return new IfElse(c, b1, new Block(null));
         }
+
     }
 
     private Condition parseNegation() throws UnexpectedTokenException {
@@ -325,10 +331,10 @@ public class Parser {
         switch (this.peek().type()) {
             case STAR:
                 this.consume();
-                return new BinaryOp(BinaryType.ADD, e1, this.parseTerm());
+                return new BinaryOp(BinaryType.MULTIPLY, e1, this.parseTerm());
             case SLASH:
                 this.consume();
-                return new BinaryOp(BinaryType.SUBTRACT, e1, this.parseTerm());
+                return new BinaryOp(BinaryType.DIVIDE, e1, this.parseTerm());
             case PERCENT:
                 this.consume();
                 return new BinaryOp(BinaryType.MOD, e1, this.parseTerm());

@@ -1,7 +1,7 @@
 package dice.error;
 
 @SuppressWarnings("serial")
-public class UndefinedFunctionException extends Exception {
+public class UndefinedFunctionException extends DiceError {
     private final String func;
     private final int line;
 
@@ -12,8 +12,7 @@ public class UndefinedFunctionException extends Exception {
 
     @Override
     public String getMessage() {
-        return "line " + this.line + ": function " + this.func
-                + " was not declared.";
+        return "line " + this.line + ": function " + this.func + " was not declared.";
     }
 
     public String getVariableName() {

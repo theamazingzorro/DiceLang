@@ -1,4 +1,6 @@
+dice
 dice.error
+dice.parser
 dice.program
 dice.program.condition
 dice.program.expression

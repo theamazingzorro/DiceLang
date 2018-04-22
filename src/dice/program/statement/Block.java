@@ -29,13 +29,13 @@ public class Block implements Scope {
         this.statements.add(s);
     }
 
-    public void run() throws Return {
+    public void run() throws Return, UndefinedFunctionException, UndefinedVariableException {
         for (Statement s : this.statements) {
             s.run();
         }
     }
 
-    public int getReturnValue() {
+    public int getReturnValue() throws UndefinedFunctionException, UndefinedVariableException {
         int returnVal = 0;
 
         try {
@@ -48,8 +48,7 @@ public class Block implements Scope {
     }
 
     @Override
-    public int getVariable(String name, int line)
-            throws UndefinedVariableException {
+    public int getVariable(String name, int line) throws UndefinedVariableException {
         if (this.vars.containsKey(name)) {
             return this.vars.get(name);
         } else if (this.parent != null) {
@@ -74,8 +73,7 @@ public class Block implements Scope {
     }
 
     @Override
-    public Function getFunction(String name, int line)
-            throws UndefinedFunctionException {
+    public Function getFunction(String name, int line) throws UndefinedFunctionException {
         return this.parent.getFunction(name, line);
     }
 

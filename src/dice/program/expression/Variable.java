@@ -15,14 +15,11 @@ public class Variable implements Expression {
     }
 
     @Override
-    public int getResult() {
+    public int getResult() throws UndefinedVariableException {
         int result = 0;
-        try {
-            result = this.parent.getVariable(this.identifier, this.line);
-        } catch (UndefinedVariableException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+
+        result = this.parent.getVariable(this.identifier, this.line);
+
         return result;
     }
 

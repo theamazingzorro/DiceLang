@@ -3,7 +3,8 @@ package dice.error;
 import dice.tokenizer.Token;
 import dice.tokenizer.Token.TokenType;
 
-public class UnexpectedTokenException extends Exception {
+@SuppressWarnings("serial")
+public class UnexpectedTokenException extends DiceError {
 
     private final int line;
     private final String src;

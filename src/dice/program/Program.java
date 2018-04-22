@@ -101,7 +101,7 @@ public class Program implements Scope {
         return result;
     }
 
-    public int run() {
+    public int run() throws UndefinedFunctionException, UndefinedVariableException {
         for (Command c : this.globals) {
             try {
                 c.run();

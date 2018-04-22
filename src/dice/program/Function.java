@@ -31,9 +31,8 @@ public class Function implements Scope {
         return this.parameters.size();
     }
 
-    public int getResult(int... args) {
-        assert args.length == this.parameters
-                .size() : "Invalid length for args";
+    public int getResult(int... args) throws UndefinedFunctionException, UndefinedVariableException {
+        assert args.length == this.parameters.size() : "Invalid length for args";
         this.args = args;
 
         try {
@@ -46,8 +45,7 @@ public class Function implements Scope {
     }
 
     @Override
-    public int getVariable(String name, int line)
-            throws UndefinedVariableException {
+    public int getVariable(String name, int line) throws UndefinedVariableException {
         if (this.parameters.contains(name)) {
             return this.args[this.parameters.indexOf(name)];
         } else if (this.parent != null) {
@@ -75,8 +73,7 @@ public class Function implements Scope {
     }
 
     @Override
-    public Function getFunction(String name, int line)
-            throws UndefinedFunctionException {
+    public Function getFunction(String name, int line) throws UndefinedFunctionException {
         return this.parent.getFunction(name, line);
     }
 

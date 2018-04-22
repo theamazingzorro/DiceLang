@@ -1,5 +1,7 @@
 package dice.program.condition;
 
+import dice.error.UndefinedFunctionException;
+import dice.error.UndefinedVariableException;
 import dice.program.Scope;
 import dice.program.expression.Expression;
 
@@ -20,7 +22,7 @@ public class Comparison implements Condition {
     }
 
     @Override
-    public boolean getResult() {
+    public boolean getResult() throws UndefinedFunctionException, UndefinedVariableException {
         int i1 = this.e1.getResult();
         int i2 = this.e2.getResult();
 
