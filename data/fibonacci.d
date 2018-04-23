@@ -2,7 +2,7 @@ main {
     x <- 0;
     y <- 1;
 
-    while(x < 100) {
+    while(y < 100) {
         print x;
         
         temp <- x + y;

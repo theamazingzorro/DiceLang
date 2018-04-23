@@ -76,7 +76,7 @@ class ParserTest {
             int val = prog.run();
             System.out.println("The result: " + val);
 
-            assertEquals(144, val);
+            assertEquals(89, val);
 
         } catch (UnexpectedCharacterException e) {
             e.printStackTrace();
